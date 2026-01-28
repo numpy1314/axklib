@@ -1,10 +1,10 @@
 #![allow(improper_ctypes_definitions)]
 
-use axklib::{Klib, AxResult, PhysAddr, VirtAddr, IrqHandler};
+use axklib::{AxResult, IrqHandler, Klib, PhysAddr, VirtAddr};
 use core::time::Duration;
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 
-use trait_ffi::impl_extern_trait; 
+use trait_ffi::impl_extern_trait;
 
 static MEM_IOMAP_CALLED: AtomicBool = AtomicBool::new(false);
 static TIME_WAIT_CALLED: AtomicBool = AtomicBool::new(false);
@@ -27,8 +27,7 @@ impl Klib for MockPlatform {
         assert_eq!(dur.as_micros(), 100, "Mock: Unexpected duration");
     }
 
-    fn irq_set_enable(_irq: usize, _enabled: bool) {
-    }
+    fn irq_set_enable(_irq: usize, _enabled: bool) {}
 
     fn irq_register(irq: usize, _handler: IrqHandler) -> bool {
         IRQ_REG_CALLED.store(true, Ordering::SeqCst);
@@ -46,7 +45,10 @@ fn test_mem_module_reexport() {
     let result = axklib::mem::iomap(paddr, size);
 
     assert!(result.is_ok());
-    assert!(MEM_IOMAP_CALLED.load(Ordering::SeqCst), "Mock method was not called!");
+    assert!(
+        MEM_IOMAP_CALLED.load(Ordering::SeqCst),
+        "Mock method was not called!"
+    );
     let vaddr = result.unwrap();
     assert_eq!(usize::from(vaddr), 0x1000_0000 + 0x1000);
 }
@@ -64,7 +66,7 @@ fn dummy_handler() {}
 fn test_irq_module_reexport() {
     IRQ_REG_CALLED.store(false, Ordering::SeqCst);
     LAST_IRQ_NUM.store(0, Ordering::SeqCst);
-    
+
     let success = axklib::irq::register(32, dummy_handler);
 
     assert!(success);
