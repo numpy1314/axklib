@@ -15,3 +15,6 @@ documentation = "https://arceos-hypervisor.github.io/axklib"
 axerrno = "0.1"
 memory_addr = "0.4"
 trait-ffi = "0.2"
+
+[dev-dependencies]
+std = { version = "*", package = "rustc-std-workspace-std" } 

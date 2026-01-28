@@ -17,6 +17,7 @@ version = "0.1.0-alpha.1"
 dependencies = [
  "axerrno",
  "memory_addr",
+ "rustc-std-workspace-std",
  "trait-ffi",
 ]
 
@@ -87,6 +88,12 @@ checksum = "ce25767e7b499d1b604768e7cde645d14cc8584231ea6b295e9c9eb22c02e1d1"
 dependencies = [
  "proc-macro2",
 ]
+
+[[package]]
+name = "rustc-std-workspace-std"
+version = "1.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "aba676a20abe46e5b0f1b0deae474aaaf31407e6c71147159890574599da04ef"
 
 [[package]]
 name = "semver"

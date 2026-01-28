@@ -62,3 +62,15 @@ This project is licensed under either of
 )
 
 at your option.
+
+## Test
+```rust
+cargo test --test mock_test
+```
+
+### Test Functionality Description
+1. **test_mem_module_reexport**: Verifies that the memory mapping interface correctly passes physical address parameters to the underlying implementation and returns the mapped virtual address.
+
+2. **test_time_module_reexport**: Verifies that the busy-wait interface correctly passes the duration parameter to the underlying implementation.
+
+3. **test_irq_module_reexport**: Verifies that the IRQ registration interface correctly passes the interrupt number and handler function to the underlying implementation.
